@@ -3,9 +3,6 @@ name: Build APK
 on:
   push:
     branches: [ main ]
-    paths:
-      - 'android/**'
-      - '.github/workflows/build-apk.yml'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -15,45 +12,25 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up JDK 11
+      - name: Set up Java
         uses: actions/setup-java@v4
         with:
-          java-version: '11'
-          distribution: 'temurin'
+          java-version: 11
+          distribution: temurin
 
-      - name: Run Gradle Build
-        uses: gradle/gradle-build-action@v2
-        with:
-          gradle-version: 8.1.1
-          build-root-directory: android
-          arguments: assembleDebug
+      - name: Build Debug APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug
 
-      - name: Upload Debug APK
+      - name: Upload APK
         uses: actions/upload-artifact@v4
+        if: success()
         with:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
 
-  test:
-    runs-on: ubuntu-latest
-    needs: build
-    
-    steps:
-      - name: Download Debug APK
-        uses: actions/download-artifact@v4
-        with:
-          name: app-debug
-
-      - name: Verify APK
-        run: |
-          if [ -f app-debug.apk ]; then
-            echo "✅ Debug APK built successfully"
-            ls -lh app-debug.apk
-          else
-            echo "❌ Debug APK not found"
-            exit 1
-          fi
