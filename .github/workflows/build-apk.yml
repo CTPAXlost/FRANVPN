@@ -31,36 +31,36 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: Make Gradle wrapper executable
-        run: chmod +x android/gradlew
-        working-directory: /workspaces/FRANVPN
+        run: chmod +x gradlew
+        working-directory: android
 
       - name: Build Debug APK
         run: ./gradlew clean assembleDebug
-        working-directory: /workspaces/FRANVPN/android
+        working-directory: android
 
       - name: Build Release APK
         run: ./gradlew clean assembleRelease
-        working-directory: /workspaces/FRANVPN/android
+        working-directory: android
 
       - name: Get version info
         id: version
         run: |
-          echo "app_version=$(grep 'versionName' android/app/build.gradle.kts | head -1 | sed 's/.*versionName = "\(.*\)".*/\1/')" >> $GITHUB_OUTPUT
-          echo "build_number=$(grep 'versionCode' android/app/build.gradle.kts | head -1 | sed 's/.*versionCode = \(.*\)/\1/')" >> $GITHUB_OUTPUT
-        working-directory: /workspaces/FRANVPN
+          echo "app_version=$(grep 'versionName' app/build.gradle.kts | head -1 | sed 's/.*versionName = "\(.*\)".*/\1/')" >> $GITHUB_OUTPUT
+          echo "build_number=$(grep 'versionCode' app/build.gradle.kts | head -1 | sed 's/.*versionCode = \(.*\)/\1/')" >> $GITHUB_OUTPUT
+        working-directory: android
 
       - name: Upload Debug APK as artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
-          path: /workspaces/FRANVPN/android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
 
       - name: Upload Release APK as artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-release
-          path: /workspaces/FRANVPN/android/app/build/outputs/apk/release/app-release.apk
+          path: android/app/build/outputs/apk/release/app-release.apk
           retention-days: 30
 
       - name: Create Release (on tag)
@@ -68,8 +68,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            /workspaces/FRANVPN/android/app/build/outputs/apk/debug/app-debug.apk
-            /workspaces/FRANVPN/android/app/build/outputs/apk/release/app-release.apk
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/outputs/apk/release/app-release.apk
           body: |
             # FRANVPN v${{ steps.version.outputs.app_version }}
             
@@ -124,14 +124,17 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Run Lint checks
         run: ./gradlew lint
-        working-directory: /workspaces/FRANVPN/android
+        working-directory: android
         continue-on-error: true
 
       - name: Upload lint reports
         uses: actions/upload-artifact@v4
         with:
           name: lint-report
-          path: /workspaces/FRANVPN/android/app/build/reports/lint-results*.html
+          path: android/app/build/reports/lint-results*.html
         if: always()
