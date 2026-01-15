@@ -20,15 +20,8 @@ jobs:
           java-version: 11
           distribution: temurin
 
-      - name: Install Gradle
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y gradle
-
-      - name: Build with system Gradle
-        run: |
-          cd android
-          gradle clean assembleDebug
+      - name: Build with Gradle
+        run: bash ./build-apk.sh
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
@@ -37,5 +30,6 @@ jobs:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
+
 
 
