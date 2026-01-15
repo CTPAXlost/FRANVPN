@@ -2,13 +2,37 @@
 
 ## 📥 Download Links
 
-### Latest Release: v1.0.0
+### 🔄 Automated Builds with GitHub Actions
 
-| Build Type | File | Size | Download |
-|-----------|------|------|----------|
-| **Debug (Testing)** | app-debug.apk | ~25 MB | [Download from GitHub](https://github.com/CTPAXlost/FRANVPN/releases/download/v1.0.0/app-debug.apk) |
-| **Release (Distribution)** | app-release.apk | ~15 MB | [Download from GitHub](https://github.com/CTPAXlost/FRANVPN/releases/download/v1.0.0/app-release.apk) |
-| **Source Code** | Source.zip | - | [GitHub Repository](https://github.com/CTPAXlost/FRANVPN) |
+**Builds are now automated!** Every push to `main` triggers a new build.
+
+| Source | Link | Notes |
+|--------|------|-------|
+| **Latest Build** | [GitHub Actions](https://github.com/CTPAXlost/FRANVPN/actions) → Build APK | Artifacts available for 30 days |
+| **Latest Release** | [GitHub Releases](https://github.com/CTPAXlost/FRANVPN/releases) | Permanent download links |
+| **Source Code** | [GitHub Repository](https://github.com/CTPAXlost/FRANVPN) | Full source code |
+
+### Download Options
+
+**Option A: From Latest Build (Temporary)**
+1. Go to [Actions tab](https://github.com/CTPAXlost/FRANVPN/actions)
+2. Click the latest "Build APK" workflow
+3. Scroll to "Artifacts" section
+4. Download `app-debug.apk` or `app-release.apk`
+5. Available for 30 days
+
+**Option B: From Release (Permanent)**
+1. Go to [Releases page](https://github.com/CTPAXlost/FRANVPN/releases)
+2. Click a release (e.g., v1.0.0)
+3. Download APK from "Assets" section
+4. Direct download link available permanently
+
+**Option C: Direct Download Links (Once Released)**
+```
+Debug:   https://github.com/CTPAXlost/FRANVPN/releases/download/v1.0.0/app-debug.apk
+Release: https://github.com/CTPAXlost/FRANVPN/releases/download/v1.0.0/app-release.apk
+```
+*Replace `v1.0.0` with actual release version*
 
 ---
 
@@ -52,10 +76,11 @@ adb shell am start -n com.franvpn.app/.ui.MainActivity
 7. Grant VPN permission when prompted
 8. Launch app from home screen or app drawer
 
-### Method 3: Build Yourself
+### Method 3: Build Yourself Locally
 
 **Requirements:**
 - Java 11+
+- Android SDK (API 26-34)
 - Gradle 8.1+
 - 2GB+ free disk space
 
@@ -71,8 +96,25 @@ cd FRANVPN/android
 # Or manually:
 ./gradlew clean assembleDebug
 
-# Install
+# Output: app/build/outputs/apk/debug/app-debug.apk
+adb install app/build/outputs/apk/debug/app-debug.apk
 ```
+
+### Method 4: Automated CI/CD (Recommended)
+
+**Uses GitHub Actions - No Setup Required!**
+
+✅ Builds happen automatically on every code change  
+✅ No Android SDK needed locally  
+✅ Download from Actions (temporary) or Releases (permanent)  
+
+**How it works:**
+1. Code is pushed to GitHub
+2. GitHub Actions automatically builds APK (~5-8 minutes)
+3. Download from Actions tab (30 days) OR
+4. Create a release tag to generate permanent download links
+
+See [CI/CD Guide](.github/CI_CD_GUIDE.md) for complete details.
 
 ---
 
