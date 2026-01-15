@@ -30,10 +30,11 @@ jobs:
       - name: Build APK
         run: |
           cd android
-          gradle clean assembleDebug
+          chmod +x gradlew
+          ./gradlew clean assembleDebug
           # Only build release if signing keys are available
           if [ -f "app/keystore/franvpn.jks" ]; then
-            gradle assembleRelease
+            ./gradlew assembleRelease
           else
             echo "⚠️  Keystore not found, skipping release build"
           fi
