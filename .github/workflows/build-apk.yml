@@ -31,7 +31,13 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew clean assembleDebug assembleRelease
+          ./gradlew clean assembleDebug
+          # Only build release if signing keys are available
+          if [ -f "app/keystore/franvpn.jks" ]; then
+            ./gradlew assembleRelease
+          else
+            echo "⚠️  Keystore not found, skipping release build"
+          fi
 
       - name: Get version info
         id: version
@@ -53,6 +59,7 @@ jobs:
           name: app-release
           path: android/app/build/outputs/apk/release/app-release.apk
           retention-days: 30
+        if: always()
 
       - name: Create Release (on tag)
         if: startsWith(github.ref, 'refs/tags/')
