@@ -17,34 +17,18 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Set up Java 11
+      - name: Set up JDK 11
         uses: actions/setup-java@v4
         with:
           java-version: '11'
           distribution: 'temurin'
-          cache: gradle
 
-      - name: Build APK
+      - name: Build Debug APK
         run: |
           cd android
           chmod +x gradlew
-          ./gradlew clean assembleDebug
-          # Only build release if signing keys are available
-          if [ -f "app/keystore/franvpn.jks" ]; then
-            ./gradlew assembleRelease
-          else
-            echo "⚠️  Keystore not found, skipping release build"
-          fi
-
-      - name: Get version info
-        id: version
-        run: |
-          cd android
-          echo "app_version=$(grep 'versionName' app/build.gradle.kts | head -1 | sed 's/.*versionName = "\(.*\)".*/\1/')" >> $GITHUB_OUTPUT
-          echo "build_number=$(grep 'versionCode' app/build.gradle.kts | head -1 | sed 's/.*versionCode = \(.*\)/\1/')" >> $GITHUB_OUTPUT
+          ./gradlew assembleDebug --no-daemon
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
@@ -52,41 +36,6 @@ jobs:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
           retention-days: 30
-
-      - name: Upload Release APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: android/app/build/outputs/apk/release/app-release.apk
-          retention-days: 30
-        if: always()
-
-      - name: Create Release (on tag)
-        if: startsWith(github.ref, 'refs/tags/')
-        uses: softprops/action-gh-release@v1
-        with:
-          files: |
-            android/app/build/outputs/apk/debug/app-debug.apk
-            android/app/build/outputs/apk/release/app-release.apk
-          body: |
-            # FRANVPN v${{ steps.version.outputs.app_version }}
-            
-            **Build:** ${{ steps.version.outputs.build_number }}
-            
-            ## Changes
-            - See commit history: https://github.com/${{ github.repository }}/commits/${{ github.sha }}
-            
-            ## Installation
-            - Download the APK file below
-            - Install on Android 8.0+ device
-            - Grant VPN permission when prompted
-            
-            ## Documentation
-            - [Build Guide](https://github.com/${{ github.repository }}/blob/main/APK_BUILD_GUIDE.md)
-            - [Download & Install](https://github.com/${{ github.repository }}/blob/main/DOWNLOAD_APK.md)
-            - [README](https://github.com/${{ github.repository }}/blob/main/README.md)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   test:
     runs-on: ubuntu-latest
