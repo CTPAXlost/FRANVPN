@@ -1,0 +1,36 @@
+# Gradle
+.gradle/
+build/
+gradlew.bat
+
+# Android
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+local.properties
+.classpath
+.project
+.cproject
+
+# IntelliJ
+*.iml
+.idea/
+*.iws
+*.ipr
+out/
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Build outputs
+*.log
+*.hprof

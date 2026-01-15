@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">FRANVPN</string>
+    <string name="app_slogan">Secure Internet, Beautifully Protected</string>
+    
+    <!-- Main Screen -->
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="connecting">Connecting...</string>
+    <string name="disconnecting">Disconnecting...</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="select_server">Select Server</string>
+    <string name="current_server">Current Server</string>
+    
+    <!-- Servers & Configs -->
+    <string name="servers">Servers</string>
+    <string name="add_config">Add Configuration</string>
+    <string name="import_config">Import Config</string>
+    <string name="scan_qr">Scan QR Code</string>
+    <string name="paste_uri">Paste URI</string>
+    <string name="import_json">Import JSON</string>
+    <string name="config_name">Config Name</string>
+    <string name="server_address">Server Address</string>
+    <string name="server_port">Port</string>
+    <string name="protocol">Protocol</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    
+    <!-- Subscriptions -->
+    <string name="subscriptions">Subscriptions</string>
+    <string name="add_subscription">Add Subscription</string>
+    <string name="subscription_url">Subscription URL</string>
+    <string name="refresh">Refresh</string>
+    <string name="update_interval">Update Interval</string>
+    <string name="nodes">Nodes</string>
+    <string name="last_updated">Last Updated</string>
+    
+    <!-- Statistics -->
+    <string name="statistics">Statistics</string>
+    <string name="upload_speed">Upload Speed</string>
+    <string name="download_speed">Download Speed</string>
+    <string name="total_uploaded">Total Uploaded</string>
+    <string name="total_downloaded">Total Downloaded</string>
+    <string name="connection_duration">Connection Duration</string>
+    <string name="connected_time">Connected Time</string>
+    
+    <!-- Settings -->
+    <string name="settings">Settings</string>
+    <string name="general">General</string>
+    <string name="network">Network</string>
+    <string name="security">Security</string>
+    <string name="about">About</string>
+    <string name="version">Version</string>
+    <string name="build">Build</string>
+    <string name="dns_setting">DNS Server</string>
+    <string name="ipv6">IPv6 Support</string>
+    <string name="kill_switch">Kill Switch</string>
+    <string name="auto_reconnect">Auto Reconnect</string>
+    <string name="split_tunneling">Split Tunneling</string>
+    <string name="per_app_proxy">Per-App Proxy</string>
+    <string name="language">Language</string>
+    <string name="theme">Theme</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
+    <string name="system_theme">System Theme</string>
+    
+    <!-- Ping -->
+    <string name="ping">Ping</string>
+    <string name="measuring_ping">Measuring ping...</string>
+    <string name="excellent">Excellent</string>
+    <string name="good">Good</string>
+    <string name="normal">Normal</string>
+    <string name="poor">Poor</string>
+    
+    <!-- Errors & Messages -->
+    <string name="error">Error</string>
+    <string name="success">Success</string>
+    <string name="connection_failed">Connection Failed</string>
+    <string name="invalid_config">Invalid Configuration</string>
+    <string name="network_error">Network Error</string>
+    <string name="please_try_again">Please try again</string>
+    <string name="no_configs">No configurations added</string>
+    <string name="no_subscriptions">No subscriptions</string>
+    
+    <!-- Buttons -->
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="edit">Edit</string>
+    <string name="remove">Remove</string>
+    <string name="test">Test</string>
+    <string name="ok">OK</string>
+    <string name="confirm">Confirm</string>
+    
+    <!-- Permissions -->
+    <string name="vpn_permission_required">VPN permission required to connect</string>
+    <string name="camera_permission_required">Camera permission required to scan QR code</string>
+</resources>
